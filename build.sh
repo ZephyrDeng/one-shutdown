@@ -21,10 +21,19 @@ cat > "$APP/Contents/Info.plist" <<'EOF'
     <key>CFBundleVersion</key>           <string>1</string>
     <key>CFBundlePackageType</key>       <string>APPL</string>
     <key>LSMinimumSystemVersion</key>    <string>13.0</string>
-    <key>LSUIElement</key>               <true/>  <!-- 只在菜单栏,不占 Dock -->
+    <key>LSUIElement</key>               <true/>
 </dict>
 </plist>
 EOF
 
-codesign --force --deep --sign - "$APP" 2>/dev/null || true
+# 有 Developer ID 证书就用它签名,否则 ad-hoc
+SIGN_ID=$(security find-identity -v -p codesigning | awk -F'"' '/Developer ID Application/{print $2; exit}')
+if [[ -n "$SIGN_ID" ]]; then
+  codesign --force --deep --options runtime --timestamp --sign "$SIGN_ID" "$APP"
+  echo "🔑 签名: $SIGN_ID"
+else
+  codesign --force --deep --sign - "$APP"
+  echo "⚠️  未找到 Developer ID,使用 ad-hoc 签名"
+fi
+
 echo "✅ $APP"
