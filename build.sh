@@ -4,9 +4,16 @@ cd "$(dirname "$0")"
 
 APP=build/OneShutdown.app
 rm -rf "$APP"
-mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+cp assets/AppIcon.icns "$APP/Contents/Resources/"
 
-swiftc -O Sources/main.swift -o "$APP/Contents/MacOS/OneShutdown"
+# 必须显式 -target:否则 swiftc 按工具链默认 minos(如 28.0)编译,低版本 macOS 报「不能与此版本 macOS 配合使用」
+# 版本需与 Info.plist 的 LSMinimumSystemVersion 保持一致;同时出 arm64 + x86_64 通用二进制
+for ARCH in arm64 x86_64; do
+  swiftc -O -target $ARCH-apple-macos13 Sources/main.swift -o build/OneShutdown-$ARCH
+done
+lipo -create build/OneShutdown-arm64 build/OneShutdown-x86_64 -output "$APP/Contents/MacOS/OneShutdown"
+rm build/OneShutdown-arm64 build/OneShutdown-x86_64
 
 cat > "$APP/Contents/Info.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -17,8 +24,9 @@ cat > "$APP/Contents/Info.plist" <<'EOF'
     <key>CFBundleDisplayName</key>       <string>OneShutdown</string>
     <key>CFBundleIdentifier</key>        <string>com.zephyr.one-shutdown</string>
     <key>CFBundleExecutable</key>        <string>OneShutdown</string>
-    <key>CFBundleShortVersionString</key><string>1.0.0</string>
-    <key>CFBundleVersion</key>           <string>1</string>
+    <key>CFBundleIconFile</key>          <string>AppIcon</string>
+    <key>CFBundleShortVersionString</key><string>1.1.0</string>
+    <key>CFBundleVersion</key>           <string>2</string>
     <key>CFBundlePackageType</key>       <string>APPL</string>
     <key>LSMinimumSystemVersion</key>    <string>13.0</string>
     <key>LSUIElement</key>               <true/>
