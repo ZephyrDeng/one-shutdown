@@ -9,6 +9,7 @@
 [![Release](https://img.shields.io/github/v/release/ZephyrDeng/one-shutdown?style=flat-square&color=e8264d)](https://github.com/ZephyrDeng/one-shutdown/releases/latest)
 [![macOS 13+](https://img.shields.io/badge/macOS-13%2B-black?style=flat-square&logo=apple)](#install)
 [![Universal](https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-universal-555?style=flat-square)](#install)
+[![Notarized](https://img.shields.io/badge/Apple-notarized-34c759?style=flat-square&logo=apple)](https://github.com/ZephyrDeng/one-shutdown/releases/latest)
 [![Swift](https://img.shields.io/badge/Swift-38%20lines-F05138?style=flat-square&logo=swift&logoColor=white)](Sources/main.swift)
 [![License: MIT](https://img.shields.io/github/license/ZephyrDeng/one-shutdown?style=flat-square)](LICENSE)
 
@@ -64,20 +65,6 @@ Finder, background services and menu-bar utilities are left alone and quit as pa
 1. Download **`OneShutdown.zip`** from the [latest release](https://github.com/ZephyrDeng/one-shutdown/releases/latest), unzip it, and drag `OneShutdown.app` into `/Applications`.
 2. Open it. A power icon appears in the menu bar. No Dock icon, no window.
 3. *(Optional)* Start it at login: **System Settings → General → Login Items → +** → pick OneShutdown.
-
-<details>
-<summary><b>"OneShutdown can't be opened" / "Apple could not verify…"</b></summary>
-
-The app is signed with a Developer ID but not notarized yet. Allow it once:
-
-- **System Settings → Privacy & Security** → scroll down → **Open Anyway**, or
-- run in Terminal:
-
-  ```bash
-  xattr -dr com.apple.quarantine /Applications/OneShutdown.app
-  ```
-
-</details>
 
 <details>
 <summary><b>macOS asks to let OneShutdown control "System Events"</b></summary>

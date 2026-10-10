@@ -9,6 +9,7 @@
 [![Release](https://img.shields.io/github/v/release/ZephyrDeng/one-shutdown?style=flat-square&color=e8264d)](https://github.com/ZephyrDeng/one-shutdown/releases/latest)
 [![macOS 13+](https://img.shields.io/badge/macOS-13%2B-black?style=flat-square&logo=apple)](#安装)
 [![Universal](https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-universal-555?style=flat-square)](#安装)
+[![Notarized](https://img.shields.io/badge/Apple-notarized-34c759?style=flat-square&logo=apple)](https://github.com/ZephyrDeng/one-shutdown/releases/latest)
 [![Swift](https://img.shields.io/badge/Swift-38%20lines-F05138?style=flat-square&logo=swift&logoColor=white)](Sources/main.swift)
 [![License: MIT](https://img.shields.io/github/license/ZephyrDeng/one-shutdown?style=flat-square)](LICENSE)
 
@@ -64,20 +65,6 @@ Finder、后台服务和菜单栏小工具不会被强退，它们在系统关�
 1. 从 [最新 Release](https://github.com/ZephyrDeng/one-shutdown/releases/latest) 下载 **`OneShutdown.zip`**，解压后把 `OneShutdown.app` 拖进「应用程序」。
 2. 打开后，菜单栏会出现电源图标。没有 Dock 图标，也没有窗口。
 3. （可选）开机自启：**系统设置 → 通用 → 登录项 → +** → 选择 OneShutdown。
-
-<details>
-<summary><b>提示「无法打开 OneShutdown」/「Apple 无法验证…」</b></summary>
-
-App 用 Developer ID 签了名，但暂未公证。首次需要手动放行一次：
-
-- **系统设置 → 隐私与安全性**，拉到底部点 **仍要打开**，或者
-- 在终端执行：
-
-  ```bash
-  xattr -dr com.apple.quarantine /Applications/OneShutdown.app
-  ```
-
-</details>
 
 <details>
 <summary><b>系统询问是否允许 OneShutdown 控制「System Events」</b></summary>

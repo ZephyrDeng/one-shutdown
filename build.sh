@@ -44,4 +44,17 @@ else
   echo "⚠️  未找到 Developer ID,使用 ad-hoc 签名"
 fi
 
+# 可选公证:RELEASE_ENV=<含 APPLE_ID / APPLE_APP_SPECIFIC_PASSWORD / APPLE_TEAM_ID 的文件> ./build.sh
+if [[ -n "$RELEASE_ENV" ]]; then
+  ( set +x; set -a; . "$RELEASE_ENV"; set +a
+    ditto -c -k --keepParent "$APP" build/notarize.zip
+    xcrun notarytool submit build/notarize.zip --wait \
+      --apple-id "$APPLE_ID" --password "$APPLE_APP_SPECIFIC_PASSWORD" --team-id "$APPLE_TEAM_ID" )
+  rm build/notarize.zip
+  xcrun stapler staple "$APP"
+  spctl -a -vv "$APP"
+  ditto -c -k --keepParent "$APP" build/OneShutdown.zip
+  echo "📦 build/OneShutdown.zip(已公证)"
+fi
+
 echo "✅ $APP"
