@@ -25,8 +25,8 @@ cat > "$APP/Contents/Info.plist" <<'EOF'
     <key>CFBundleIdentifier</key>        <string>com.zephyr.one-shutdown</string>
     <key>CFBundleExecutable</key>        <string>OneShutdown</string>
     <key>CFBundleIconFile</key>          <string>AppIcon</string>
-    <key>CFBundleShortVersionString</key><string>1.2.0</string>
-    <key>CFBundleVersion</key>           <string>3</string>
+    <key>CFBundleShortVersionString</key><string>1.2.1</string>
+    <key>CFBundleVersion</key>           <string>4</string>
     <key>CFBundlePackageType</key>       <string>APPL</string>
     <key>LSMinimumSystemVersion</key>    <string>13.0</string>
     <key>LSUIElement</key>               <true/>
